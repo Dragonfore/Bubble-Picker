@@ -1,4 +1,4 @@
-package com.igalata.bubblepickerdemo
+package com.igalata.bubblepickerforfood
 
 import android.graphics.Typeface
 import android.os.Build
@@ -10,16 +10,17 @@ import com.igalata.bubblepicker.BubblePickerListener
 import com.igalata.bubblepicker.adapter.BubblePickerAdapter
 import com.igalata.bubblepicker.model.BubbleGradient
 import com.igalata.bubblepicker.model.PickerItem
-import kotlinx.android.synthetic.main.activity_demo.*
+import kotlinx.android.synthetic.main.selector_activity.*
 
 /**
  * Created by irinagalata on 1/19/17.
  */
-class DemoActivity : AppCompatActivity() {
+class BubbleSelectorActivity : AppCompatActivity() {
 
     private val boldTypeface by lazy { Typeface.createFromAsset(assets, ROBOTO_BOLD) }
     private val mediumTypeface by lazy { Typeface.createFromAsset(assets, ROBOTO_MEDIUM) }
     private val regularTypeface by lazy { Typeface.createFromAsset(assets, ROBOTO_REGULAR) }
+    private
 
     companion object {
         private const val ROBOTO_BOLD = "roboto_bold.ttf"
@@ -29,7 +30,7 @@ class DemoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_demo)
+        setContentView(R.layout.selector_activity)
 
         titleTextView.typeface = mediumTypeface
         subtitleTextView.typeface = boldTypeface
@@ -53,8 +54,8 @@ class DemoActivity : AppCompatActivity() {
                     gradient = BubbleGradient(colors.getColor((position * 2) % 8, 0),
                             colors.getColor((position * 2) % 8 + 1, 0), BubbleGradient.VERTICAL)
                     typeface = mediumTypeface
-                    textColor = ContextCompat.getColor(this@DemoActivity, android.R.color.white)
-                    backgroundImage = ContextCompat.getDrawable(this@DemoActivity, images.getResourceId(position, 0))
+                    textColor = ContextCompat.getColor(this@BubbleSelectorActivity, android.R.color.white)
+                    backgroundImage = ContextCompat.getDrawable(this@BubbleSelectorActivity, images.getResourceId(position, 0))
                 }
             }
         }
@@ -64,7 +65,8 @@ class DemoActivity : AppCompatActivity() {
 
         picker.bubbleSize = 20
         picker.listener = object : BubblePickerListener {
-            override fun onBubbleSelected(item: PickerItem) = toast("${item.title} selected")
+            //override fun onBubbleSelected(item: PickerItem) = toast("${item.title} selected")
+            override fun onBubbleSelected(item: PickerItem) = updateSelected("${item.title}")
 
             override fun onBubbleDeselected(item: PickerItem) = toast("${item.title} deselected")
         }
@@ -81,5 +83,9 @@ class DemoActivity : AppCompatActivity() {
     }
 
     private fun toast(text: String) = Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+
+    private fun updateSelected(text: String) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+    }
 
 }
